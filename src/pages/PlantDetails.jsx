@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { plants } from '../data/plants';
 import DisclaimerBox from '../components/DisclaimerBox';
 import Badge from '../components/Badge';
+import ImageModal from '../components/ImageModal';
 import { plantImages } from '../data/plantImages';
 
 export default function PlantDetails() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { slug } = useParams();
   const plant = plants.find((item) => item.slug === slug);
 
@@ -40,7 +43,21 @@ export default function PlantDetails() {
               <div className="rounded-[2rem] border border-wood/10 bg-mintleaf/80 p-6 text-forest">
                 <div className="flex h-full flex-col items-center justify-center rounded-[1.75rem] border border-wood/20 bg-white p-4 text-center shadow-sm">
                   {plantImages[plant.image] ? (
-                    <img src={plantImages[plant.image]} alt={plant.name} className="mb-4 h-36 w-full rounded-[1.5rem] object-cover" />
+                    <>
+                      <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="mb-4 h-36 w-full rounded-[1.5rem] overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+                        aria-label="Kép nagyítása"
+                      >
+                        <img src={plantImages[plant.image]} alt={plant.name} className="h-full w-full object-contain" />
+                      </button>
+                      <ImageModal
+                        isOpen={isModalOpen}
+                        imageSrc={plantImages[plant.image]}
+                        altText={plant.name}
+                        onClose={() => setIsModalOpen(false)}
+                      />
+                    </>
                   ) : (
                     <div className="mb-4 h-36 w-full rounded-[1.5rem] bg-wood/5 flex items-center justify-center text-3xl">🌿</div>
                   )}

@@ -36,9 +36,9 @@ export default function PlantCard({ plant }) {
             <h2 className="mt-3 truncate text-xl font-semibold text-forest">{plant.name}</h2>
             <p className="text-sm italic text-forest/70">{plant.latinName}</p>
           </div>
-          <div className="flex h-16 w-16 items-center justify-center rounded-[1.5rem] border border-wood/10 bg-wood/5 text-2xl text-forest/70 overflow-hidden">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full border border-wood/10 bg-wood/5 text-2xl text-forest/70 overflow-hidden">
             {imageSrc ? (
-              <img src={imageSrc} alt={plant.name} className="h-full w-full object-cover" />
+              <img src={imageSrc} alt={plant.name} className="h-full w-full object-cover rounded-full" />
             ) : (
               <div className="flex h-full w-full items-center justify-center text-2xl">{icon}</div>
             )}
@@ -63,7 +63,7 @@ export default function PlantCard({ plant }) {
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        {harvestable && <Badge variant="success">Most gyűjthető</Badge>}
+        {harvestable && <div className="inline-flex min-w-fit items-center justify-center rounded-full bg-forest px-4 py-2 text-sm font-semibold text-softcream">Most gyűjthető</div>}
         <Link to={`/plants/${plant.slug}`} className="ml-auto inline-flex min-w-[96px] items-center justify-center rounded-full bg-forest px-4 py-2 text-sm font-semibold text-softcream transition hover:bg-wood sm:ml-0 sm:px-5">
           Részletek
         </Link>
